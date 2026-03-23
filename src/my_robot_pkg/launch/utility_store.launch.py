@@ -4,14 +4,16 @@ from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
+from launch_ros.actions import Node 
 
 def generate_launch_description():
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
     turtlebot3_gazebo = get_package_share_directory('turtlebot3_gazebo')
     launch_file_dir = os.path.join(turtlebot3_gazebo, 'launch')
+    pkg_dir = get_package_share_directory('my_robot_pkg')
 
     world = os.path.join(
-        get_package_share_directory('my_robot_pkg'),
+        pkg_dir,
         'worlds', 'utility_store.world'
     )
 
@@ -48,11 +50,17 @@ def generate_launch_description():
             'y_pose': y_pose
         }.items()
     )
+    rviz_node = Node(
+    package='rviz2',
+    executable='rviz2',
+    arguments=['-d', os.path.join(pkg_dir, 'rviz', 'utility_store.rviz')]
+)
 
     ld = LaunchDescription()
     ld.add_action(gzserver_cmd)
     ld.add_action(gzclient_cmd)
     ld.add_action(robot_state_publisher_cmd)
     ld.add_action(spawn_turtlebot_cmd)
+    ld.add_action(rviz_node)
 
     return ld
