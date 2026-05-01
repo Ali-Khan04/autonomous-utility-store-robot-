@@ -11,6 +11,9 @@ def generate_launch_description():
     turtlebot3_gazebo = get_package_share_directory('turtlebot3_gazebo')
     launch_file_dir = os.path.join(turtlebot3_gazebo, 'launch')
     pkg_dir = get_package_share_directory('my_robot_pkg')
+    map_file = os.path.join(pkg_dir, 'maps', 'utility_store_map.yaml')
+    use_sim_time = LaunchConfiguration('use_sim_time', default='true')
+
 
     world = os.path.join(
         pkg_dir,
@@ -53,7 +56,29 @@ def generate_launch_description():
     rviz_node = Node(
     package='rviz2',
     executable='rviz2',
-    arguments=['-d', os.path.join(pkg_dir, 'rviz', 'utility_store.rviz')]
+    arguments=['-d', os.path.join(pkg_dir, 'rviz', 'utility_store.rviz')],
+    parameters=[{'use_sim_time': use_sim_time}],
+)
+    map_server = Node(
+    package='nav2_map_server',
+    executable='map_server',
+    name='map_server',
+    output='screen',
+    parameters=[{
+        'yaml_filename': map_file,
+        'use_sim_time': use_sim_time
+    }]
+)
+    lifecycle_manager = Node(
+    package='nav2_lifecycle_manager',
+    executable='lifecycle_manager',
+    name='lifecycle_manager_localization',
+    output='screen',
+    parameters=[{
+        'use_sim_time': use_sim_time,
+        'autostart': True,
+        'node_names': ['map_server']
+    }]
 )
 
     ld = LaunchDescription()
@@ -62,5 +87,7 @@ def generate_launch_description():
     ld.add_action(robot_state_publisher_cmd)
     ld.add_action(spawn_turtlebot_cmd)
     ld.add_action(rviz_node)
+    ld.add_action(map_server)
+    ld.add_action(lifecycle_manager)
 
     return ld
