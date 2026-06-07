@@ -1,0 +1,13 @@
+slam_toolbox:
+  ros__parameters:
+    mode: localization
+    use_sim_time: true
+    solver_plugin: solver_plugins::CeresSolver
+    odom_frame: odom
+    map_frame: map
+    base_frame: base_footprint
+    scan_topic: /scan
+    minimum_travel_distance: 0.2
+    minimum_travel_heading: 0.2
+    map_update_interval: 5.0
+    enable_interactive_mode: false

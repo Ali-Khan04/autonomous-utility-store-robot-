@@ -46,6 +46,13 @@ localization using LiDAR data.
 Real-time /scan data from physical RPLidar A1 hardware visualized in
 RViz2. Confirms full sensor pipeline on Ubuntu + ROS 2.
 
+### SLAM Mapping — Store Environment
+![SLAM Map](src/my_robot_pkg/docs/slam.jpeg)
+
+2D occupancy grid map generated using `slam_toolbox` inside the custom
+store environment. The robot successfully performs real-time mapping and
+localization using LiDAR data.
+
 ## Running the Simulation
 ```bash
 source /opt/ros/humble/setup.bash
