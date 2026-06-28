@@ -3,6 +3,6 @@ install(DIRECTORY
   maps
   worlds
   rviz
-  config        # add this line
+  config        
   DESTINATION share/${PROJECT_NAME}
 )
