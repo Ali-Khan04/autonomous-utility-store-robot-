@@ -28,16 +28,22 @@ ros2_ws/
 ## Progress
 
 ### Gazebo Simulation — LiDAR Visualization
-![Gazebo LiDAR](src/my_robot_pkg/docs/gazebo_lidar.png)
+<p align="center">
+  <img src="src/my_robot_pkg/docs/gazebo_lidar.png" width="650">
+</p>
 TurtleBot3 loaded into custom store world. 360° LiDAR rays actively
 detecting shelf obstacles in simulation.
 
 ### RViz2 — Live LiDAR from RPLidar A1
-![RViz2 LiDAR](src/my_robot_pkg/docs/rviz2_lidar.png)
+<p align="center">
+  <img src="src/my_robot_pkg/docs/rviz2_lidar.png" width="650">
+</p>
 Real-time `/scan` data from the physical RPLidar A1 visualized in RViz2
 
 ### SLAM Mapping — Store Environment
-![SLAM Map](src/my_robot_pkg/docs/slam.jpeg)
+<p align="center">
+  <img src="src/my_robot_pkg/docs/slam.jpeg" width="650">
+</p>
 2D occupancy grid map generated using `slam_toolbox` inside the custom
 store environment. The robot successfully performs real-time mapping and
 localization using LiDAR data.
@@ -46,12 +52,29 @@ localization using LiDAR data.
 Real-time /scan data from physical RPLidar A1 hardware visualized in
 RViz2. Confirms full sensor pipeline on Ubuntu + ROS 2.
 
-### SLAM Mapping — Store Environment
-![SLAM Map](src/my_robot_pkg/docs/slam.jpeg)
+### Nav2 Global Costmap
 
-2D occupancy grid map generated using `slam_toolbox` inside the custom
-store environment. The robot successfully performs real-time mapping and
-localization using LiDAR data.
+<p align="center">
+  <img src="src/my_robot_pkg/docs/nav2_costmap.png" width="650">
+</p>
+
+Nav2 global costmap generated from the SLAM occupancy map. The costmap includes the static map, detected obstacles, and inflated safety regions around walls and shelves that Nav2 uses for path planning.
+
+### Gazebo Simulation — LiDAR Visualization
+
+<p align="center">
+  <img src="src/my_robot_pkg/docs/gazebo.gif" width="650">
+</p>
+
+TurtleBot3 running inside the custom utility store environment with simulated 360° LiDAR detecting shelves and surrounding obstacles.
+
+### Nav2 Autonomous Navigation
+
+<p align="center">
+  <img src="src/my_robot_pkg/docs/nav2.gif" width="650">
+</p>
+
+A navigation goal is sent to the robot through Nav2, which generates a path on the global costmap and drives the robot toward the target while respecting obstacle and inflation regions.
 
 ## Running the Simulation
 ```bash
@@ -65,7 +88,7 @@ ros2 launch my_robot_pkg utility_store.launch.py
 - [x] Gazebo world setup
 - [x] LiDAR sensor integration
 - [x] SLAM mapping
-- [ ] Nav2 autonomous navigation
+- [x] Nav2 autonomous navigation
+- [x] Servo arm control
 - [ ] YOLOv8 product detection
-- [ ] Servo arm control
 - [ ] Full mission pipeline
